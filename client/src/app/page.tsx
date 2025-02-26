@@ -1,11 +1,18 @@
+import HeroSection from "@/components/base/HeroSection/HeroSection";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <h1>Welcome to Voting App</h1>
-      <Button>Shadcn UI</Button>
+    <div className="flex flex-col justify-center items-center text-center">
+      <HeroSection />
+      <h1 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-b from-slate-900 to-primary text-transparent bg-clip-text p-2">
+        Welcome to Voting App
+      </h1>
+      <Link href="/login">
+        <Button className="mt-5">Let's Vote</Button>
+      </Link>
     </div>
   );
 }
