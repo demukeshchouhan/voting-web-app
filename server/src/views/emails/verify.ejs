@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/header') %>
+  <body>
+    <div class="container">
+      <p style="color: #fff">Hello <strong><%= name %></strong></p>
+      <p style="color: #fff">We are happy to onboard you</p>
+      <a href="<%= url %>" target="_blank">Click on this link</a>
+      <p>
+        If you are not able to click above link then please follow below url and
+        open in new tab.
+      </p>
+      <p><%= url %></p>
+      <p style="color: #fff">If you have any query let us know</p>
+      <%- include('../partials/footer') %>
+    </div>
+  </body>
+</html>

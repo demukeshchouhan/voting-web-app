@@ -14,7 +14,7 @@ export const registerSchema = z
       .string({
         message: "Password is required",
       })
-      .min(3, {
+      .min(6, {
         message: "Password must be 6 characters long",
       }),
 
@@ -23,12 +23,12 @@ export const registerSchema = z
         message: "Confirm Password is required",
       })
       .min(6, {
-        message: "Confirma Password must be 6 characters long",
+        message: "Confirm Password must be 6 characters long",
       }),
   })
   .refine(
     (data) => {
-      return data.password !== data.confirm_password;
+      return data.password === data.confirm_password;
     },
     {
       message: "Confrm password not matched",

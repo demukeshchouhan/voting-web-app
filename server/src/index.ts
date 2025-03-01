@@ -1,15 +1,12 @@
 import express, { Application, Request, Response } from "express";
 import "dotenv/config";
 import path from "path";
-import { fileURLToPath } from "url";
-import ejs from "ejs";
 import Routes from "./routes/index.js";
 
 // Queues
 import "./jobs/index.js";
 import { emailQueue, emailQueueName } from "./jobs/index.js";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import { renderEmailTemplate, __dirname } from "./helpers.js";
 
 const PORT = process.env.PORT || 3000;
 const app: Application = express();
@@ -27,7 +24,7 @@ app.use(Routes);
 
 app.get("/", async (_req: Request, res: Response): Promise<void> => {
   try {
-    const html = await ejs.renderFile(__dirname + "/views/emails/welcome.ejs", {
+    const html = await renderEmailTemplate("welcome", {
       name: "Mukesh",
     });
     await emailQueue.add(emailQueueName, {

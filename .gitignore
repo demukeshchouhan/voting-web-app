@@ -5,11 +5,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # Next.js build
-client/.next/
-client/out/
+/client/.next/
+/client/out/
 
-server/dist/
-server/node_modules/
+/server/dist/
+/server/node_modules/
 
 # Logs
 logs
