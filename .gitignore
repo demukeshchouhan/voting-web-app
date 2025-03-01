@@ -8,6 +8,9 @@ yarn-error.log*
 client/.next/
 client/out/
 
+server/dist/
+server/node_modules/
+
 # Logs
 logs
 *.log
