@@ -75,7 +75,7 @@ export const RegisterForm = () => {
         </div>
       </CardContent>
       <CardFooter className="flex flex-col justify-center gap-2">
-        <SubmitButton />
+        <SubmitButton label="Register" />
         <p className="text-sm">
           Already have an account?{" "}
           <Link href="/login" className="text-primary font-bold">

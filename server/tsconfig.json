@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDirs": ["src", "src/custom-types.d.ts"],
     "strict": true,
     "module": "Node16",
     "esModuleInterop": true,
