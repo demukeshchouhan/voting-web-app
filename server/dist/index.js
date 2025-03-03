@@ -15,11 +15,13 @@ import Routes from "./routes/index.js";
 import "./jobs/index.js";
 import { emailQueue, emailQueueName } from "./jobs/index.js";
 import { renderEmailTemplate, __dirname } from "./helpers.js";
+import { appLimiter } from "./config/rateLimit.js";
 const PORT = process.env.PORT || 3000;
 const app = express();
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(appLimiter);
 // view engine
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "./views"));
