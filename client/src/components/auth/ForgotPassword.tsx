@@ -45,12 +45,6 @@ export const ForgotPassword = () => {
       </CardContent>
       <CardFooter className="flex flex-col justify-center gap-2">
         <SubmitButton label="Get Reset Link" />
-        {/* <p className="text-sm">
-          Don't have any account?{" "}
-          <Link href="/register" className="text-primary font-bold">
-            Please Register
-          </Link>
-        </p> */}
       </CardFooter>
     </form>
   );
