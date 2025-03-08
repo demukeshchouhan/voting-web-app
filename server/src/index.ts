@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import "dotenv/config";
 import path from "path";
 import Routes from "./routes/index.js";
+import fileUpload from "express-fileupload";
 
 // Queues
 import "./jobs/index.js";
@@ -16,7 +17,13 @@ const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(appLimiter);
-
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+  })
+);
+app.use(express.static("public"));
 // view engine
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "./views"));
