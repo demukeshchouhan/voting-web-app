@@ -28,7 +28,7 @@ export const LoginForm = () => {
           email: state.data?.email,
           password: state.data?.password,
           redirect: true,
-          callbackUrl: "/",
+          callbackUrl: "/dashboard",
         });
       }
     })();
