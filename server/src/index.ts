@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import "dotenv/config";
 import path from "path";
+import cors from "cors";
 import Routes from "./routes/index.js";
 import fileUpload from "express-fileupload";
 
@@ -15,6 +16,7 @@ const app: Application = express();
 
 // Middlewares
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(appLimiter);
 app.use(

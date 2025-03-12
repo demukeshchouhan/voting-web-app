@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import express from "express";
 import "dotenv/config";
 import path from "path";
+import cors from "cors";
 import Routes from "./routes/index.js";
 import fileUpload from "express-fileupload";
 // Queues
@@ -21,6 +22,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 // Middlewares
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(appLimiter);
 app.use(fileUpload({
