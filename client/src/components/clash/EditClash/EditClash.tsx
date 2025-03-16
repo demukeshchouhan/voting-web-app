@@ -1,4 +1,5 @@
 "use client";
+import { clearCache } from "@/actions/commonActions";
 import { CustomUser } from "@/app/api/auth/[...nextauth]/options";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,18 +13,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { CLASH_URL } from "@/lib/apiEndPoints";
-import { ClashData } from "@/lib/type";
+import { ClashData, ClashType } from "@/lib/type";
 import axios, { AxiosError } from "axios";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";
 
-function AddClash({ user }: { user: CustomUser }) {
-  const [open, setOpen] = useState(false);
+function EditClash({
+  user,
+  clash,
+  open,
+  setOpen,
+}: {
+  user: CustomUser;
+  clash: ClashType;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) {
   const [errors, setErrors] = useState<ClashData>({});
   const [clashData, setClashData] = useState<ClashData>({
-    title: "",
-    description: "",
-    expireAt: "",
+    title: clash.title,
+    description: clash.description,
+    expireAt: clash.expire_at,
   });
 
   const [image, setImage] = useState<File | null>(null);
@@ -46,20 +56,19 @@ function AddClash({ user }: { user: CustomUser }) {
     evt.preventDefault();
     try {
       setLoading(true);
-
       const formData = new FormData();
       formData.append("title", clashData?.title ?? "");
       formData.append("description", clashData?.description ?? "");
       formData.append("expire_at", clashData?.expireAt ?? "");
       if (image) formData.append("image", image);
-
-      const { data } = await axios.post(CLASH_URL, formData, {
+      const { data } = await axios.put(`${CLASH_URL}/${clash.id}`, formData, {
         headers: {
           Authorization: user.token,
         },
       });
       setLoading(false);
       if (data?.message) {
+        clearCache("dashboard");
         setClashData({});
         setImage(null);
         setErrors({});
@@ -80,12 +89,12 @@ function AddClash({ user }: { user: CustomUser }) {
   return (
     <div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger className="bg-secondary text-primary p-2 border-r-card rounded px-4">
+        <DialogTrigger className="bg-primary text-secondary p-2 border-r-card">
           Add Clash
         </DialogTrigger>
         <DialogContent onInteractOutside={(e) => e.preventDefault()}>
           <DialogHeader>
-            <DialogTitle>Create Clash</DialogTitle>
+            <DialogTitle>Update Clash</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit}>
             <div className="mb-2">
@@ -143,7 +152,7 @@ function AddClash({ user }: { user: CustomUser }) {
               disabled={loading}
               className="mt-4 flex justify-self-end"
             >
-              {loading ? "Processing..." : "Create Clash"}
+              {loading ? "Processing..." : "Update Clash"}
             </Button>
           </form>
         </DialogContent>
@@ -152,4 +161,4 @@ function AddClash({ user }: { user: CustomUser }) {
   );
 }
 
-export default AddClash;
+export default EditClash;
